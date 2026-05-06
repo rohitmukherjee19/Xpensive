@@ -2,6 +2,61 @@
 
 {% block title %}Spendly — Track Every Rupee{% endblock %}
 
+{% block head %}
+<style>
+.video-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.video-modal-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+.video-modal-box {
+    position: relative;
+    width: 90%;
+    max-width: 820px;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.video-modal-close {
+    position: absolute;
+    top: -2.6rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.15s;
+}
+.video-modal-close:hover { color: #ccc; }
+.video-modal-embed {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+.video-modal-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
 <section class="hero">
@@ -18,7 +73,7 @@
         </p>
         <div class="hero-actions">
             <a href="{{ url_for('register') }}" class="btn-primary">14-day free trial</a>
-            <a href="{{ url_for('login') }}" class="btn-ghost">See how it works</a>
+            <button type="button" class="btn-ghost" id="open-video-modal">See how it works</button>
         </div>
         <div class="hero-trust">
             <p class="hero-trust-label">Trusted by users across the platform</p>
@@ -109,4 +164,56 @@
     </div>
 </section>
 
+<!-- Video modal -->
+<div id="video-modal" class="video-modal-overlay" aria-hidden="true">
+    <div class="video-modal-box">
+        <button type="button" class="video-modal-close" id="close-video-modal" aria-label="Close">&times;</button>
+        <div class="video-modal-embed">
+            <iframe
+                id="modal-iframe"
+                src=""
+                data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    var modal    = document.getElementById('video-modal');
+    var iframe   = document.getElementById('modal-iframe');
+    var openBtn  = document.getElementById('open-video-modal');
+    var closeBtn = document.getElementById('close-video-modal');
+
+    function openModal() {
+        iframe.src = iframe.dataset.src;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        iframe.src = '';
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+}());
+</script>
 {% endblock %}
