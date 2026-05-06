@@ -124,7 +124,8 @@ a { color: inherit; text-decoration: none; }
 /* ------------------------------------------------------------------ */
 
 .hero {
-    padding: 5rem 2rem 4rem;
+    background: #ffffff;
+    padding: 5rem 2rem 5rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
@@ -135,29 +136,30 @@ a { color: inherit; text-decoration: none; }
 
 .hero-badge {
     display: inline-block;
-    background: var(--accent-light);
-    color: var(--accent);
-    font-size: 0.75rem;
+    background: #e6f4ea;
+    color: #2d6a4f;
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    padding: 0.35rem 0.85rem;
+    padding: 0.3rem 0.9rem;
     border-radius: 999px;
     margin-bottom: 1.5rem;
 }
 
 .hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--ink);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: #0d0d0d;
     margin-bottom: 1.25rem;
 }
 
 .hero-title em {
-    font-style: italic;
-    color: var(--accent);
+    font-style: normal;
+    color: #4361ee;
 }
 
 .hero-subtitle {
@@ -174,6 +176,49 @@ a { color: inherit; text-decoration: none; }
     align-items: center;
 }
 
+.hero-trust {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.hero-trust-label {
+    font-size: 0.78rem;
+    color: #a0a0a0;
+    font-weight: 400;
+}
+
+.hero-trust-badges {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.trust-badge-stars {
+    color: #f59e0b;
+    font-size: 0.65rem;
+    letter-spacing: 0.03em;
+}
+
+.trust-badge-score {
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: #0d0d0d;
+}
+
+.trust-badge-name {
+    font-size: 0.78rem;
+    color: #6b6b6b;
+}
+
 /* ------------------------------------------------------------------ */
 /* Mock card (hero visual)                                             */
 /* ------------------------------------------------------------------ */
@@ -184,13 +229,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 .mock-card {
-    background: var(--paper-card);
-    border: 1px solid var(--border);
+    background: #1e3a8a;
+    border: none;
     border-radius: var(--radius-lg);
     padding: 2rem;
     width: 100%;
     max-width: 380px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    color: #ffffff;
+    box-shadow: 0 24px 64px rgba(30, 58, 138, 0.35);
 }
 
 .mock-card-header {
@@ -199,13 +245,13 @@ a { color: inherit; text-decoration: none; }
     align-items: baseline;
     margin-bottom: 1.75rem;
     padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--border-soft);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .mock-label {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--ink-muted);
+    color: rgba(255, 255, 255, 0.65);
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
@@ -213,7 +259,7 @@ a { color: inherit; text-decoration: none; }
 .mock-total {
     font-family: var(--font-display);
     font-size: 1.75rem;
-    color: var(--ink);
+    color: #ffffff;
 }
 
 .mock-bars { display: flex; flex-direction: column; gap: 1rem; }
@@ -228,31 +274,31 @@ a { color: inherit; text-decoration: none; }
 .mock-cat {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--ink-soft);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .mock-bar-track {
     height: 6px;
-    background: var(--border-soft);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 999px;
     overflow: hidden;
 }
 
 .mock-bar {
     height: 100%;
-    background: var(--accent);
+    background: #60a5fa;
     border-radius: 999px;
     transition: width 0.6s ease;
 }
 
-.mock-bar-2 { background: var(--accent-2); }
-.mock-bar-3 { background: #5b7fa6; }
-.mock-bar-4 { background: #8b5e83; }
+.mock-bar-2 { background: #f59e0b; }
+.mock-bar-3 { background: #a78bfa; }
+.mock-bar-4 { background: #34d399; }
 
 .mock-amt {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--ink-muted);
+    color: rgba(255, 255, 255, 0.7);
     text-align: right;
 }
 
