@@ -1,5 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from database import get_db, init_db, seed_db
+from datetime import datetime
+from werkzeug.security import generate_password_hash
+import re
 
 app = Flask(__name__)
 
@@ -18,9 +21,46 @@ def landing():
     return render_template("landing.html")
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
+    if request.method == "GET":
+        return render_template("register.html")
+
+    name = request.form.get("name", "").strip()
+    email = request.form.get("email", "").strip()
+    password = request.form.get("password", "")
+
+    error = None
+
+    if len(name) < 2:
+        error = "Full name must be at least 2 characters."
+    elif not re.match(r'^[^@\s]+@[^@\s]+\.[^@\s]+$', email):
+        error = "Invalid email address."
+    elif len(password) < 8:
+        error = "Password must be at least 8 characters."
+    else:
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id FROM users WHERE email = ?", (email,))
+        if cursor.fetchone():
+            error = "Email already registered."
+        conn.close()
+
+    if error:
+        return render_template("register.html", error=error, name=name, email=email)
+
+    conn = get_db()
+    cursor = conn.cursor()
+    password_hash = generate_password_hash(password)
+    created_at = datetime.now().isoformat()
+    cursor.execute(
+        "INSERT INTO users (name, email, password_hash, created_at) VALUES (?, ?, ?, ?)",
+        (name, email, password_hash, created_at)
+    )
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("login"))
 
 
 @app.route("/login")
